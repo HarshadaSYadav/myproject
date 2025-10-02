@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import  useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -20,7 +20,7 @@ export default function App() {
 
   
   const [panelOpen, setPanelOpen] = useState<boolean>(false);
-  const [showRowCheckboxes, setShowRowCheckboxes] = useState<boolean>(true);
+  const [showRowCheckboxes] = useState<boolean>(true);
   const [selectNumberText, setSelectNumberText] = useState<string>('');
   const [selectingFirstN, setSelectingFirstN] = useState<boolean>(false);
 
@@ -74,32 +74,6 @@ export default function App() {
  
   const togglePanel = () => setPanelOpen(prev => !prev);
 
-  
-  const isAllCurrentPageSelected = () => {
-    const selectedIds = new Set(selectedRows.map(r => r.id));
-    return artworks.length > 0 && artworks.every(a => selectedIds.has(a.id));
-  };
-
-  
-  const handleSelectAllOnPageChange = (checked: boolean) => {
-    const selectedIds = new Set(selectedRows.map(r => r.id));
-    
-    if (checked) {
-     
-      const newSelection = [...selectedRows];
-      artworks.forEach(artwork => {
-        if (!selectedIds.has(artwork.id)) {
-          newSelection.push(artwork);
-        }
-      });
-      setSelectedRows(newSelection);
-    } else {
-    
-      const currentPageIds = new Set(artworks.map(a => a.id));
-      const newSelection = selectedRows.filter(row => !currentPageIds.has(row.id));
-      setSelectedRows(newSelection);
-    }
-  };
 
   
   const selectFirstN = async (n: number) => {
@@ -162,10 +136,6 @@ export default function App() {
     selectFirstN(n);
   };
 
-  
-  const handlePanelSubmit = () => {
-    console.log('Selected rows:', selectedRows);
-  };
 
   
   const codeHeader = (
